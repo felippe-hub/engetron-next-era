@@ -1,4 +1,6 @@
 import { Quote } from "lucide-react";
+import { motion } from "framer-motion";
+import AnimatedSection from "./AnimatedSection";
 
 const testimonials = [
   {
@@ -35,22 +37,34 @@ const testimonials = [
 
 const TestimonialsSection = () => {
   return (
-    <section id="cases" className="section-padding">
-      <div className="container mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-14">
+    <section id="cases" className="section-padding relative overflow-hidden">
+      {/* Decorative gradient */}
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full blur-[150px] opacity-[0.04]" style={{ background: 'hsl(350,82%,42%)' }} />
+
+      <div className="container mx-auto relative z-10">
+        <AnimatedSection className="text-center max-w-2xl mx-auto mb-14">
           <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-3">Cases de Sucesso</p>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4">
-            Empresas que confiam na Engetron
+            Empresas que{" "}
+            <span className="text-gradient-red">confiam na Engetron</span>
           </h2>
           <p className="text-muted-foreground">
             Mais de 48 anos construindo relacionamentos sólidos com os maiores players do mercado.
           </p>
-        </div>
+        </AnimatedSection>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.map((t) => (
-            <div key={t.company} className="bg-card border border-border rounded-lg p-6 relative">
-              <Quote className="h-6 w-6 text-primary/20 mb-3" />
+          {testimonials.map((t, i) => (
+            <motion.div
+              key={t.company}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              whileHover={{ y: -4, transition: { duration: 0.25 } }}
+              className="group bg-card border border-border rounded-lg p-6 relative transition-shadow duration-300 hover:shadow-lg hover:shadow-primary/5"
+            >
+              <Quote className="h-6 w-6 text-primary/20 mb-3 transition-colors duration-300 group-hover:text-primary/40" />
               <p className="text-sm text-muted-foreground leading-relaxed mb-5 italic">
                 "{t.quote}"
               </p>
@@ -60,7 +74,7 @@ const TestimonialsSection = () => {
                   {t.sector}
                 </span>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

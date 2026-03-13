@@ -1,4 +1,6 @@
 import { Server, HeartPulse, Factory, Building2 } from "lucide-react";
+import { motion } from "framer-motion";
+import AnimatedSection from "./AnimatedSection";
 
 const sectors = [
   {
@@ -33,26 +35,32 @@ const sectors = [
 
 const SectorsSection = () => {
   return (
-    <section id="setores" className="section-padding bg-surface-warm">
-      <div className="container mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-14">
+    <section id="setores" className="section-padding bg-surface-warm relative grid-pattern overflow-hidden">
+      <div className="container mx-auto relative z-10">
+        <AnimatedSection className="text-center max-w-2xl mx-auto mb-14">
           <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-3">Setores de Atuação</p>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4">
-            Soluções especializadas por segmento
+            Soluções especializadas{" "}
+            <span className="text-gradient-red">por segmento</span>
           </h2>
           <p className="text-muted-foreground">
             Cada setor tem necessidades únicas. Nossa engenharia dimensiona a solução ideal para sua operação.
           </p>
-        </div>
+        </AnimatedSection>
 
         <div className="grid md:grid-cols-2 gap-6">
-          {sectors.map((sector) => (
-            <div
+          {sectors.map((sector, i) => (
+            <motion.div
               key={sector.title}
-              className="group bg-card border border-border rounded-lg p-6 md:p-8 card-hover"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -4, transition: { duration: 0.25 } }}
+              className="group bg-card border border-border rounded-lg p-6 md:p-8 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/5"
             >
               <div className="flex items-start gap-5">
-                <div className="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 text-primary shrink-0">
+                <div className="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 text-primary shrink-0 transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110">
                   <sector.icon className="h-6 w-6" />
                 </div>
                 <div className="flex-1">
@@ -61,14 +69,14 @@ const SectorsSection = () => {
                   <p className="text-sm text-muted-foreground leading-relaxed mb-4">{sector.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {sector.features.map((f) => (
-                      <span key={f} className="text-xs px-3 py-1 rounded-full border border-border bg-background text-muted-foreground">
+                      <span key={f} className="text-xs px-3 py-1 rounded-full border border-border bg-background text-muted-foreground transition-colors duration-200 group-hover:border-primary/30 group-hover:text-primary">
                         {f}
                       </span>
                     ))}
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

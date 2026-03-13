@@ -1,20 +1,23 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Send, Phone, Mail, MapPin } from "lucide-react";
+import { Send, Phone, Mail, MapPin, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
+import AnimatedSection from "./AnimatedSection";
 
 const ContactSection = () => {
   const [submitted, setSubmitted] = useState(false);
 
   return (
-    <section id="contato" className="section-padding bg-surface-warm">
-      <div className="container mx-auto">
+    <section id="contato" className="section-padding bg-surface-warm relative grid-pattern overflow-hidden">
+      <div className="container mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           {/* Left copy */}
-          <div className="space-y-6">
+          <AnimatedSection className="space-y-6">
             <div>
               <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-3">Contato</p>
               <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4">
-                Fale com um especialista
+                Fale com um{" "}
+                <span className="text-gradient-red">especialista</span>
               </h2>
               <p className="text-muted-foreground max-w-md">
                 Nossa equipe de Engenharia de Aplicação vai dimensionar a solução ideal para a sua infraestrutura de energia.
@@ -26,13 +29,20 @@ const ContactSection = () => {
                 { icon: Phone, text: "+55 (31) 3399-2000" },
                 { icon: Mail, text: "comercial@engetron.com.br" },
                 { icon: MapPin, text: "Belo Horizonte, MG — Brasil" },
-              ].map(({ icon: Icon, text }) => (
-                <div key={text} className="flex items-center gap-3">
-                  <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <Icon className="h-4 w-4 text-primary" />
+              ].map(({ icon: Icon, text }, i) => (
+                <motion.div
+                  key={text}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }}
+                  className="flex items-center gap-3 group"
+                >
+                  <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 transition-all duration-300 group-hover:bg-primary group-hover:scale-105">
+                    <Icon className="h-4 w-4 text-primary transition-colors group-hover:text-primary-foreground" />
                   </div>
                   <span className="text-sm text-foreground">{text}</span>
-                </div>
+                </motion.div>
               ))}
             </div>
 
@@ -41,18 +51,28 @@ const ContactSection = () => {
                 Precisa de atendimento urgente? Ligue diretamente para nossa central e fale com um engenheiro especializado.
               </p>
             </div>
-          </div>
+          </AnimatedSection>
 
           {/* Form */}
-          <div className="bg-card border border-border rounded-lg p-6 md:p-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="bg-card border border-border rounded-lg p-6 md:p-8 shadow-lg shadow-primary/[0.02]"
+          >
             {submitted ? (
-              <div className="text-center py-12 space-y-4">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center py-12 space-y-4"
+              >
                 <div className="h-14 w-14 mx-auto rounded-full bg-primary/10 flex items-center justify-center">
-                  <Send className="h-6 w-6 text-primary" />
+                  <CheckCircle2 className="h-7 w-7 text-primary" />
                 </div>
                 <h3 className="text-xl font-display font-bold text-foreground">Mensagem enviada!</h3>
                 <p className="text-sm text-muted-foreground">Nosso time entrará em contato em até 24 horas úteis.</p>
-              </div>
+              </motion.div>
             ) : (
               <form
                 onSubmit={(e) => {
@@ -129,7 +149,7 @@ const ContactSection = () => {
                 </p>
               </form>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
