@@ -1,4 +1,6 @@
 import { Shield, Wifi, Factory, Award, BarChart3, Headphones } from "lucide-react";
+import { motion } from "framer-motion";
+import AnimatedSection from "./AnimatedSection";
 
 const features = [
   {
@@ -35,25 +37,31 @@ const features = [
 
 const FeaturesSection = () => {
   return (
-    <section id="solucoes" className="section-padding bg-surface-warm">
-      <div className="container mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-14">
+    <section id="solucoes" className="section-padding bg-surface-warm relative grid-pattern overflow-hidden">
+      <div className="container mx-auto relative z-10">
+        <AnimatedSection className="text-center max-w-2xl mx-auto mb-14">
           <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-3">Por que Engetron</p>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4">
-            A parceira certa para sua infraestrutura de energia
+            A parceira certa para sua{" "}
+            <span className="text-gradient-red">infraestrutura de energia</span>
           </h2>
           <p className="text-muted-foreground">
             Soluções completas que combinam hardware robusto, conectividade IoT e suporte técnico especializado.
           </p>
-        </div>
+        </AnimatedSection>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature) => (
-            <div
+          {features.map((feature, i) => (
+            <motion.div
               key={feature.title}
-              className="group bg-card border border-border rounded-lg p-6 card-hover"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              className="group bg-card border border-border rounded-lg p-6 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/5"
             >
-              <div className="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 text-primary mb-4">
+              <div className="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 text-primary mb-4 transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110">
                 <feature.icon className="h-6 w-6" />
               </div>
               <h3 className="text-base font-display font-semibold text-foreground mb-2">
@@ -62,7 +70,7 @@ const FeaturesSection = () => {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 {feature.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

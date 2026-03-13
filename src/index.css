@@ -80,6 +80,13 @@
     color: hsl(var(--engetron-red));
   }
 
+  .text-gradient-red {
+    background: linear-gradient(135deg, hsl(350, 82%, 48%), hsl(350, 82%, 38%), hsl(20, 90%, 50%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
   .section-padding {
     @apply py-16 md:py-24 px-4;
   }
@@ -91,6 +98,27 @@
   .card-hover:hover {
     transform: translateY(-4px);
     box-shadow: 0 16px 40px -8px rgba(0,0,0,0.1);
+  }
+
+  .grid-pattern {
+    background-image: 
+      linear-gradient(rgba(196, 18, 48, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(196, 18, 48, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .line-glow {
+    position: relative;
+  }
+  .line-glow::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, hsl(350, 82%, 42%), transparent);
+    border-radius: 2px;
   }
 }
 

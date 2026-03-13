@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import AnimatedSection from "./AnimatedSection";
 
 import productDwmm from "@/assets/product-dwmm.png";
 import productDwMono from "@/assets/product-dw-mono.jpg";
@@ -67,17 +69,18 @@ const ProductsSection = () => {
   const filtered = active === "Todos" ? products : products.filter((p) => p.category === active);
 
   return (
-    <section id="produtos" className="section-padding">
-      <div className="container mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-10">
+    <section id="produtos" className="section-padding relative overflow-hidden">
+      <div className="container mx-auto relative z-10">
+        <AnimatedSection className="text-center max-w-2xl mx-auto mb-10">
           <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-3">Linha de Produtos</p>
           <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4">
-            Nobreaks/UPS IoT para cada necessidade
+            Nobreaks/UPS IoT para{" "}
+            <span className="text-gradient-red">cada necessidade</span>
           </h2>
           <p className="text-muted-foreground">
             De 700VA a 825kVA. Todos com onda senoidal pura e gestão IoT integrada.
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* Filter */}
         <div className="flex flex-wrap justify-center gap-2 mb-10">
@@ -85,9 +88,9 @@ const ProductsSection = () => {
             <button
               key={cat}
               onClick={() => setActive(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+              className={`relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                 active === cat
-                  ? "bg-primary text-primary-foreground shadow-sm"
+                  ? "bg-primary text-primary-foreground shadow-md shadow-primary/20"
                   : "bg-secondary text-muted-foreground hover:text-foreground"
               }`}
             >
@@ -97,37 +100,47 @@ const ProductsSection = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((product) => (
-            <div
-              key={product.name}
-              className="group bg-card border border-border rounded-lg overflow-hidden card-hover"
-            >
-              <div className="h-52 bg-secondary flex items-center justify-center p-6 relative">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-300"
-                />
-                <span className="absolute top-3 right-3 text-[10px] font-semibold px-2 py-1 rounded bg-primary/10 text-primary">
-                  {product.highlight}
-                </span>
-              </div>
-
-              <div className="p-5">
-                <div className="flex items-center justify-between mb-1.5">
-                  <h3 className="text-base font-display font-semibold text-foreground">{product.name}</h3>
-                  <span className="text-xs text-muted-foreground font-medium">{product.range}</span>
+        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((product) => (
+              <motion.div
+                key={product.name}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                className="group bg-card border border-border rounded-lg overflow-hidden transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/5"
+              >
+                <div className="h-52 bg-secondary flex items-center justify-center p-6 relative overflow-hidden">
+                  {/* Subtle gradient on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="max-h-full w-auto object-contain group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <span className="absolute top-3 right-3 text-[10px] font-semibold px-2 py-1 rounded bg-primary/10 text-primary backdrop-blur-sm">
+                    {product.highlight}
+                  </span>
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{product.description}</p>
-                <a href="#" className="inline-flex items-center text-sm font-medium text-primary hover:underline group/link">
-                  Saiba mais
-                  <ArrowRight className="h-3.5 w-3.5 ml-1 transition-transform group-hover/link:translate-x-1" />
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
+
+                <div className="p-5">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <h3 className="text-base font-display font-semibold text-foreground">{product.name}</h3>
+                    <span className="text-xs text-muted-foreground font-medium">{product.range}</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">{product.description}</p>
+                  <a href="#" className="inline-flex items-center text-sm font-medium text-primary hover:underline group/link">
+                    Saiba mais
+                    <ArrowRight className="h-3.5 w-3.5 ml-1 transition-transform group-hover/link:translate-x-1" />
+                  </a>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );

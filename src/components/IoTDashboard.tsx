@@ -1,4 +1,6 @@
-import { Activity, Thermometer, Zap, Battery, Wifi, AlertTriangle } from "lucide-react";
+import { Activity, Thermometer, Zap, Battery, Wifi } from "lucide-react";
+import { motion } from "framer-motion";
+import AnimatedSection from "./AnimatedSection";
 
 const gaugeData = [
   { label: "Tensão Entrada", value: "220V", percent: 88, isAccent: false },
@@ -15,14 +17,29 @@ const alerts = [
 
 const IoTDashboard = () => {
   return (
-    <section id="iot" className="section-padding bg-engetron-dark relative">
+    <section id="iot" className="section-padding bg-engetron-dark relative overflow-hidden">
+      {/* Animated background grid */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{
+        backgroundImage: 'linear-gradient(hsl(350,82%,42%) 1px, transparent 1px), linear-gradient(90deg, hsl(350,82%,42%) 1px, transparent 1px)',
+        backgroundSize: '60px 60px',
+      }} />
+
+      <motion.div
+        className="absolute top-1/3 left-0 w-[500px] h-[500px] rounded-full blur-[150px] opacity-[0.06]"
+        style={{ background: 'radial-gradient(circle, hsl(350,82%,42%), transparent)' }}
+        animate={{ scale: [1, 1.15, 1] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+      />
+
       <div className="container mx-auto relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left - copy */}
-          <div className="space-y-6">
+          <AnimatedSection className="space-y-6">
             <p className="text-sm font-semibold tracking-widest uppercase text-primary">Engetron IoT</p>
             <h2 className="text-3xl sm:text-4xl font-display font-bold leading-tight" style={{ color: 'hsl(0,0%,100%)' }}>
-              Monitoramento inteligente em tempo real
+              Monitoramento{" "}
+              <span className="text-gradient-red">inteligente</span>{" "}
+              em tempo real
             </h2>
             <p className="text-base leading-relaxed" style={{ color: 'hsl(0,0%,65%)' }}>
               O Sistema Engetron IoT permite gestão completa e remota de toda sua infraestrutura de energia. Receba diagnósticos preditivos, acompanhe parâmetros críticos e reduza custos de manutenção em até 40%.
@@ -33,17 +50,32 @@ const IoTDashboard = () => {
                 "Alertas preditivos para manutenção preventiva",
                 "Dashboard multi-unidade para gestão centralizada",
                 "Relatórios automáticos de desempenho e eficiência",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3 text-sm" style={{ color: 'hsl(0,0%,75%)' }}>
+              ].map((item, i) => (
+                <motion.li
+                  key={item}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
+                  className="flex items-start gap-3 text-sm"
+                  style={{ color: 'hsl(0,0%,75%)' }}
+                >
                   <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
                   {item}
-                </li>
+                </motion.li>
               ))}
             </ul>
-          </div>
+          </AnimatedSection>
 
           {/* Right - Dashboard simulation */}
-          <div className="rounded-xl border p-5 md:p-6" style={{ borderColor: 'hsl(220,20%,22%)', backgroundColor: 'hsl(220,25%,11%)' }}>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="rounded-xl border p-5 md:p-6 backdrop-blur-sm"
+            style={{ borderColor: 'hsl(220,20%,22%)', backgroundColor: 'hsla(220,25%,11%,0.8)' }}
+          >
             {/* Header */}
             <div className="flex items-center justify-between mb-6 pb-3 border-b" style={{ borderColor: 'hsl(220,20%,22%)' }}>
               <div className="flex items-center gap-2">
@@ -54,24 +86,41 @@ const IoTDashboard = () => {
                 </div>
               </div>
               <div className="flex items-center gap-1.5">
-                <Wifi className="h-3.5 w-3.5 text-green-500" />
+                <motion.div
+                  animate={{ scale: [1, 1.3, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <Wifi className="h-3.5 w-3.5 text-green-500" />
+                </motion.div>
                 <span className="text-[10px] text-green-500 font-medium">Online</span>
               </div>
             </div>
 
             {/* Metrics */}
             <div className="grid grid-cols-2 gap-3 mb-6">
-              {gaugeData.map((item) => (
-                <div key={item.label} className="rounded-lg p-3" style={{ backgroundColor: 'hsl(220,25%,14%)' }}>
+              {gaugeData.map((item, i) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
+                  className="rounded-lg p-3"
+                  style={{ backgroundColor: 'hsl(220,25%,14%)' }}
+                >
                   <p className="text-[10px] mb-1" style={{ color: 'hsl(0,0%,50%)' }}>{item.label}</p>
                   <p className="text-xl font-display font-bold" style={{ color: 'hsl(0,0%,95%)' }}>{item.value}</p>
                   <div className="h-1 w-full rounded-full mt-2" style={{ backgroundColor: 'hsl(220,20%,20%)' }}>
-                    <div
-                      className="h-full rounded-full bg-primary transition-all duration-1000"
-                      style={{ width: `${item.percent}%`, ...(item.isAccent ? { backgroundColor: '#22c55e' } : {}) }}
+                    <motion.div
+                      className="h-full rounded-full bg-primary"
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${item.percent}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.2, delay: 0.5 + i * 0.15, ease: "easeOut" }}
+                      style={item.isAccent ? { backgroundColor: '#22c55e' } : {}}
                     />
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
 
@@ -131,7 +180,7 @@ const IoTDashboard = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
