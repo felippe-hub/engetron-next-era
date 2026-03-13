@@ -2,55 +2,64 @@ import { Quote } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "A Engetron é nossa parceira estratégica há mais de 10 anos. A disponibilidade e o suporte técnico são excepcionais.",
-    name: "Carlos Mendes",
-    title: "Diretor de TI — Hospital São Lucas",
+    quote: "Comercialmente, a Engetron garante os prazos combinados e é bem competitiva. Tem bom pós-venda e, pelo fato de ser nacional, é muito mais fácil lidar com relação a peças e técnicos.",
+    company: "AEC",
+    sector: "Corporativo",
+  },
+  {
+    quote: "Se pudesse escolher, os equipamentos do Governo seriam todos Engetron, pois nunca nos deram problema. Estamos muito satisfeitos porque a Engetron tem um serviço muito bom.",
+    company: "Banestes",
+    sector: "Financeiro",
+  },
+  {
+    quote: "Na busca por fornecedores de nobreaks, testamos diversas marcas e configurações, e os nobreaks Engetron nos atendem em várias capacidades. São nobreaks que demandam baixa manutenção.",
+    company: "Fiat",
+    sector: "Indústria",
+  },
+  {
+    quote: "A Engetron é uma empresa presente, com atendimento ágil e alta segurança nas informações e na prestação de serviços. É uma parceira comprometida com nossa filosofia.",
+    company: "Hospital Mater Dei",
     sector: "Saúde",
   },
   {
-    quote: "Com o IoT da Engetron, reduzimos nossos custos de manutenção em 35% e eliminamos paradas não planejadas.",
-    name: "Fernanda Oliveira",
-    title: "Gerente de Infraestrutura — TechData",
-    sector: "Data Center",
+    quote: "Os produtos e serviços da Engetron nos permitiram minimizar os riscos de indisponibilidade dos serviços de TI e agilizar as manutenções preventivas.",
+    company: "Banco Mercantil",
+    sector: "Financeiro",
   },
   {
-    quote: "A integração via Modbus com nosso SCADA foi perfeita. Os nobreaks industriais suportam nosso ambiente 24/7.",
-    name: "Roberto Lima",
-    title: "Engenheiro de Automação — Metalúrgica Forte",
-    sector: "Indústria",
+    quote: "A Engetron é uma excelente parceira em Minas Gerais, atuando com agilidade nos processos e disponibilidade da equipe.",
+    company: "MRV",
+    sector: "Corporativo",
   },
 ];
 
 const TestimonialsSection = () => {
   return (
-    <section id="sobre" className="section-padding">
+    <section id="cases" className="section-padding">
       <div className="container mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <p className="text-sm font-medium text-accent tracking-widest uppercase mb-4">Depoimentos</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-6">
-            Quem confia na Engetron
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-3">Cases de Sucesso</p>
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4">
+            Empresas que confiam na Engetron
           </h2>
+          <p className="text-muted-foreground">
+            Mais de 48 anos construindo relacionamentos sólidos com os maiores players do mercado.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((t) => (
-            <div key={t.name} className="bg-card border border-border rounded-xl p-6 relative">
-              <Quote className="h-8 w-8 text-primary/20 mb-4" />
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6 italic">
+            <div key={t.company} className="bg-card border border-border rounded-lg p-6 relative">
+              <Quote className="h-6 w-6 text-primary/20 mb-3" />
+              <p className="text-sm text-muted-foreground leading-relaxed mb-5 italic">
                 "{t.quote}"
               </p>
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full gradient-primary flex items-center justify-center text-sm font-bold text-primary-foreground">
-                  {t.name.charAt(0)}
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-foreground">{t.name}</p>
-                  <p className="text-xs text-muted-foreground">{t.title}</p>
-                </div>
+              <div className="flex items-center justify-between pt-4 border-t border-border">
+                <span className="text-sm font-display font-bold text-foreground">{t.company}</span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-primary/10 text-primary font-medium">
+                  {t.sector}
+                </span>
               </div>
-              <span className="absolute top-6 right-6 text-[10px] px-2 py-0.5 rounded bg-accent/10 text-accent border border-accent/20">
-                {t.sector}
-              </span>
             </div>
           ))}
         </div>

@@ -1,55 +1,49 @@
-import { Shield, Wifi, Factory, Leaf, BarChart3, Clock } from "lucide-react";
+import { Shield, Wifi, Factory, Award, BarChart3, Headphones } from "lucide-react";
 
 const features = [
   {
     icon: Shield,
     title: "Disponibilidade Total",
-    description: "Sistemas redundantes com transferência em 0ms. Sua operação protegida 24/7 contra qualquer falha de energia.",
-    accent: true,
+    description: "Sistemas online dupla conversão com transferência em 0ms. Paralelismo de capacidade e redundância para soluções de até 6,6 MVA.",
   },
   {
     icon: Wifi,
-    title: "IoT Integrado",
-    description: "Monitoramento remoto em tempo real. Receba alertas preditivos e gerencie toda sua infraestrutura de qualquer lugar.",
-    accent: false,
+    title: "Gestão IoT Completa",
+    description: "Monitoramento remoto em tempo real de todos os parâmetros: potência, autonomia, tensão, alarmes e diagnósticos preditivos.",
   },
   {
     icon: BarChart3,
-    title: "Gestão Preditiva",
-    description: "Inteligência artificial que antecipa falhas antes que aconteçam. Reduza custos de manutenção em até 40%.",
-    accent: false,
+    title: "Eficiência Energética",
+    description: "Rendimento elevado com retificador e inversor IGBT. Corrente senoidal pura e fator de potência 0,99 reduzem custos operacionais.",
   },
   {
     icon: Factory,
     title: "Fabricação Nacional",
-    description: "Tecnologia própria com engenharia 100% brasileira. Suporte técnico direto do fabricante em todo território.",
-    accent: false,
+    description: "Tecnologia própria com engenharia 100% brasileira. Suporte técnico direto do fabricante e rede de assistências técnicas em todo o país.",
   },
   {
-    icon: Leaf,
-    title: "Eficiência Energética",
-    description: "Rendimento acima de 96%. Reduza seu consumo energético e a pegada de carbono da sua operação.",
-    accent: true,
+    icon: Award,
+    title: "Até 5 Anos de Garantia",
+    description: "A maior garantia do mercado em Nobreaks/UPS IoT trifásicos. Confiança respaldada por mais de 48 anos de atuação.",
   },
   {
-    icon: Clock,
-    title: "Suporte 24/7",
-    description: "Equipe de engenheiros especializados disponível a qualquer momento para garantir a continuidade da sua operação.",
-    accent: false,
+    icon: Headphones,
+    title: "Suporte Especializado",
+    description: "Engenharia de Aplicação dedicada para dimensionar a solução ideal. Atendimento técnico personalizado em todo o território nacional.",
   },
 ];
 
 const FeaturesSection = () => {
   return (
-    <section id="solucoes" className="section-padding">
+    <section id="solucoes" className="section-padding bg-surface-warm">
       <div className="container mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <p className="text-sm font-medium text-accent tracking-widest uppercase mb-4">Diferenciais</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-6">
-            Engenharia de missão crítica
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-3">Por que Engetron</p>
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4">
+            A parceira certa para sua infraestrutura de energia
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Cada componente projetado para garantir que a sua infraestrutura nunca pare.
+          <p className="text-muted-foreground">
+            Soluções completas que combinam hardware robusto, conectividade IoT e suporte técnico especializado.
           </p>
         </div>
 
@@ -57,16 +51,12 @@ const FeaturesSection = () => {
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="group relative bg-card border border-border rounded-xl p-6 card-hover"
+              className="group bg-card border border-border rounded-lg p-6 card-hover"
             >
-              <div className={`inline-flex items-center justify-center h-12 w-12 rounded-lg mb-5 ${
-                feature.accent
-                  ? 'bg-accent/10 text-accent'
-                  : 'bg-primary/10 text-primary'
-              }`}>
+              <div className="inline-flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 text-primary mb-4">
                 <feature.icon className="h-6 w-6" />
               </div>
-              <h3 className="text-lg font-display font-semibold text-foreground mb-3">
+              <h3 className="text-base font-display font-semibold text-foreground mb-2">
                 {feature.title}
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">

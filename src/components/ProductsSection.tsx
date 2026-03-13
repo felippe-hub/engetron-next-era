@@ -1,51 +1,64 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Zap, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
-const categories = ["Todos", "Online", "Line-Interactive", "Industrial"];
+import productDwmm from "@/assets/product-dwmm.png";
+import productDwMono from "@/assets/product-dw-mono.jpg";
+import productDwTrimono from "@/assets/product-dw-trimono.jpg";
+import productTrifasico from "@/assets/product-trifasico.png";
+import productCompacta from "@/assets/product-compacta.png";
+import productVolt from "@/assets/product-volt.png";
+
+const categories = ["Todos", "Trifásicos", "Monofásicos", "Linha Compacta"];
 
 const products = [
   {
-    name: "Safe Power",
-    category: "Online",
-    range: "1 a 3 kVA",
-    description: "Proteção online dupla conversão para servidores, redes e equipamentos sensíveis.",
-    highlight: "Dupla Conversão",
+    name: "Double Way Trifásico",
+    category: "Trifásicos",
+    range: "10 a 825 kVA",
+    description: "Nobreaks/UPS IoT online, dupla conversão com alto rendimento. Paralelismo de capacidade e redundância para até 6,6 MVA.",
+    image: productTrifasico,
+    highlight: "5 anos de garantia",
   },
   {
-    name: "Safe Server",
-    category: "Online",
-    range: "6 a 20 kVA",
-    description: "Solução escalável para data centers de pequeno e médio porte com gerenciamento inteligente.",
-    highlight: "Escalável",
-  },
-  {
-    name: "Safe Max",
-    category: "Online",
-    range: "20 a 200 kVA",
-    description: "Alta potência com paralelismo para data centers e missão crítica de grande porte.",
-    highlight: "Paralelismo",
-  },
-  {
-    name: "Safe Gate",
-    category: "Online",
-    range: "200 a 800 kVA",
-    description: "O mais robusto da linha. Modular e escalável para infraestruturas de altíssima disponibilidade.",
+    name: "DW Monofásico Modular",
+    category: "Monofásicos",
+    range: "3 a 12 kVA",
+    description: "Modular rack/torre, dupla conversão com fator de potência 1.0 ou 0,9. Alto rendimento com tecnologia 3 níveis.",
+    image: productDwmm,
     highlight: "Modular",
   },
   {
-    name: "Safe Station",
-    category: "Line-Interactive",
-    range: "0.6 a 3 kVA",
-    description: "Proteção inteligente para estações de trabalho, automação comercial e redes.",
-    highlight: "Compacto",
+    name: "DW Monofásico",
+    category: "Monofásicos",
+    range: "3 a 20 kVA",
+    description: "Alimentação monofásica com saída isolada, facilmente configurável. Dupla conversão com bypass estático.",
+    image: productDwMono,
+    highlight: "Dupla Conversão",
   },
   {
-    name: "Safe Industrial",
-    category: "Industrial",
-    range: "10 a 80 kVA",
-    description: "Projetado para ambientes industriais severos com grau de proteção elevado e protocolo Modbus.",
-    highlight: "IP54",
+    name: "DW Trimono",
+    category: "Monofásicos",
+    range: "6 a 25 kVA",
+    description: "Elevado MTBF com energia fornecida constantemente pelo inversor. Dois caminhos alternativos de alimentação.",
+    image: productDwTrimono,
+    highlight: "Alto MTBF",
+  },
+  {
+    name: "Linha Compacta",
+    category: "Linha Compacta",
+    range: "1 a 5 kVA",
+    description: "Energia senoidal pura e alimentação bivolt automática. Alta confiabilidade para estações de trabalho e PDVs.",
+    image: productCompacta,
+    highlight: "Senoidal Puro",
+  },
+  {
+    name: "Nobreaks Volt",
+    category: "Linha Compacta",
+    range: "700VA a 1400VA",
+    description: "Nobreaks online e senoidais. Ideais para PCs, sistemas de segurança e outras aplicações do dia a dia.",
+    image: productVolt,
+    highlight: "Online",
   },
 ];
 
@@ -54,30 +67,28 @@ const ProductsSection = () => {
   const filtered = active === "Todos" ? products : products.filter((p) => p.category === active);
 
   return (
-    <section id="produtos" className="section-padding relative">
-      <div className="absolute inset-0 gradient-hero" />
-      
-      <div className="container mx-auto relative z-10">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <p className="text-sm font-medium text-primary tracking-widest uppercase mb-4">Portfólio</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-foreground mb-6">
-            Linha completa de Nobreaks
+    <section id="produtos" className="section-padding">
+      <div className="container mx-auto">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <p className="text-sm font-semibold text-primary tracking-widest uppercase mb-3">Linha de Produtos</p>
+          <h2 className="text-3xl sm:text-4xl font-display font-bold text-foreground mb-4">
+            Nobreaks/UPS IoT para cada necessidade
           </h2>
-          <p className="text-muted-foreground text-lg">
-            De 600VA a 800kVA. Encontre a solução ideal para sua operação.
+          <p className="text-muted-foreground">
+            De 700VA a 825kVA. Todos com onda senoidal pura e gestão IoT integrada.
           </p>
         </div>
 
         {/* Filter */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setActive(cat)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                 active === cat
-                  ? "gradient-primary text-primary-foreground shadow-lg shadow-primary/20"
-                  : "bg-card border border-border text-muted-foreground hover:text-foreground hover:border-primary/40"
+                  ? "bg-primary text-primary-foreground shadow-sm"
+                  : "bg-secondary text-muted-foreground hover:text-foreground"
               }`}
             >
               {cat}
@@ -90,28 +101,29 @@ const ProductsSection = () => {
           {filtered.map((product) => (
             <div
               key={product.name}
-              className="group bg-card border border-border rounded-xl overflow-hidden card-hover"
+              className="group bg-card border border-border rounded-lg overflow-hidden card-hover"
             >
-              {/* Visual header */}
-              <div className="h-48 bg-gradient-to-br from-surface to-card flex items-center justify-center relative">
-                <div className="h-20 w-16 rounded-lg border border-border/50 bg-background/30 flex items-center justify-center">
-                  <Zap className="h-8 w-8 text-primary group-hover:text-accent transition-colors duration-300" />
-                </div>
-                <span className="absolute top-4 right-4 text-[10px] font-medium px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20">
+              <div className="h-52 bg-secondary flex items-center justify-center p-6 relative">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+                />
+                <span className="absolute top-3 right-3 text-[10px] font-semibold px-2 py-1 rounded bg-primary/10 text-primary">
                   {product.highlight}
                 </span>
               </div>
 
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-lg font-display font-semibold text-foreground">{product.name}</h3>
-                  <span className="text-xs text-muted-foreground">{product.range}</span>
+              <div className="p-5">
+                <div className="flex items-center justify-between mb-1.5">
+                  <h3 className="text-base font-display font-semibold text-foreground">{product.name}</h3>
+                  <span className="text-xs text-muted-foreground font-medium">{product.range}</span>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">{product.description}</p>
-                <Button variant="ghost" size="sm" className="group/btn text-primary p-0 h-auto hover:bg-transparent">
+                <a href="#" className="inline-flex items-center text-sm font-medium text-primary hover:underline group/link">
                   Saiba mais
-                  <ArrowRight className="h-4 w-4 ml-1 transition-transform group-hover/btn:translate-x-1" />
-                </Button>
+                  <ArrowRight className="h-3.5 w-3.5 ml-1 transition-transform group-hover/link:translate-x-1" />
+                </a>
               </div>
             </div>
           ))}
